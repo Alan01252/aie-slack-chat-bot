@@ -3,5 +3,8 @@ class HelpGetter(object):
         print "in help getter"
 
     def getHelpMessage(self):
-        return "Welcome to the AIE Bot \n Current commands: help"
+        return "Welcome to the AIE Bot " \
+               "\n\n Current commands: \n\n " \
+               "help : Returns this message \n\n " \
+               "get_registered : Returns a link to get a spreadsheet of users"
 

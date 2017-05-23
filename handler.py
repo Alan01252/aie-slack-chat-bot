@@ -24,7 +24,7 @@ def getRegistered():
     return registerGetter.getRegistered()
 
 
-def sendMessage(message):
+def sendMessageToSlack(message):
     hook_url = os.environ["SLACK_HOOK_URL"]
 
     slack_message = {
@@ -66,4 +66,10 @@ def start(event, context):
         'get_registered': getRegistered()
     }.get(command_text, "Command not found" + command_text + "\n\n" + getHelp())
 
-    return sendMessage(message)
+    response = {
+        "statusCode": 200,
+        "body": message
+    }
+
+
+    return response
