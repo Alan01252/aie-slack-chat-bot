@@ -1,14 +1,34 @@
 import base64
 import os
-
-from PIL import Image
-import cStringIO
-
 import requests
 
 
 class Registerer(object):
-    def getImageData(self, args):
+
+    def is_not_used(self):
+        pass
+
+    def check_currently_available(self, args):
+
+        self.is_not_used()
+
+        print "Getting availability for user " + args[1]
+
+        response = requests.get(
+            os.environ['ANALYTICS_SERVICE'] + "/location/" + " ".join(args[2::]) + "/availability/now",
+            headers={'Origin': os.environ["AUTH_HEADER"]})
+
+        json = response.json()
+
+        for row in json["users"]:
+            if row["username"] == args[1]:
+                return True
+
+        return False
+
+    def get_image_data(self, args):
+
+        self.is_not_used()
 
         print "Getting image for user " + args[1]
 
@@ -22,7 +42,9 @@ class Registerer(object):
 
         return "data:image/jpeg;base64," + img_str
 
-    def performRegistration(self, args, imageData):
+    def perform_registration(self, args, imageData):
+
+        self.is_not_used()
 
         data = {
             'Image': imageData,
@@ -44,10 +66,15 @@ class Registerer(object):
 
         print args
 
-        imageData = self.getImageData(args)
-        if self.performRegistration(args, imageData) == True:
-            print "Check-in Success"
-            return "CheckIn/Out Successfull"
+        imageData = self.get_image_data(args)
+
+        checkedIn = self.check_currently_available(args)
+
+        message = "Check-In"
+        if checkedIn:
+            message = "Check-Out"
+
+        if self.perform_registration(args, imageData) == True:
+            return message + " Success"
         else:
-            print "Check-in Failed"
-            return "CheckIn/Out Failed"
+            return message + " Failed"

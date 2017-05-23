@@ -17,7 +17,7 @@ log.setLevel(logging.DEBUG)
 
 def getHelp(command_text=None):
     helpGetter = HelpGetter()
-    return helpGetter.getHelpMessage()
+    return helpGetter.get_help_message()
 
 
 def getRegistered(command_text=None):
