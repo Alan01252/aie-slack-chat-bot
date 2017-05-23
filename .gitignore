@@ -1,0 +1,4 @@
+.idea/
+.requirements/
+node_modules/
+env.yml
