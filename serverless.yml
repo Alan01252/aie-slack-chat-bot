@@ -26,6 +26,7 @@ provider:
   stage: dev
   region: eu-west-2
   environment: ${file(env.yml):${self:custom.stage}}
+  timeout: 10
 
 
 # you can add statements to the Lambda function's IAM Role here
