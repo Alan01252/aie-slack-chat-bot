@@ -25,9 +25,10 @@ def getRegistered(command_text=None):
     registerGetter = RegisterGetter()
     return registerGetter.getRegistered()
 
-def get_checked_in(location):
+
+def get_checked_in(command_text=None):
     checked_in = CheckedInTodayGetter()
-    return checked_in.get_checked_in(location)
+    return checked_in.get_checked_in(command_text)
 
 
 def register(command_text=None):
@@ -75,7 +76,8 @@ def start(event, context):
     command = {
         'help': getHelp,
         'get_registered': getRegistered,
-        'register': register
+        'register': register,
+        'list': get_checked_in
     }
 
     if command_text == "register":

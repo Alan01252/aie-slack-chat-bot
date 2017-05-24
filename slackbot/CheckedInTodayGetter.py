@@ -19,6 +19,8 @@ class CheckedInTodayGetter(object):
         return user_data['forename'] + ' ' + user_data['surname']  # Lazyyy
 
     def get_checked_in(self, location):
+        if location is None:
+            location = 'holborn'
         response = requests.get(os.environ['ANALYTICS_ENDPOINT'],
                                 headers={'Origin': os.environ['AUTH_HEADER']})
 
