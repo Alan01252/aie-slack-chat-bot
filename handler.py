@@ -5,6 +5,7 @@ import os
 from urlparse import parse_qs
 from urllib2 import Request, urlopen, URLError, HTTPError
 
+from slackbot.CheckedInTodayGetter import CheckedInTodayGetter
 from slackbot.HelpGetter import HelpGetter
 from slackbot.RegisterGetter import RegisterGetter
 
@@ -22,6 +23,10 @@ def getHelp():
 def getRegistered():
     registerGetter = RegisterGetter()
     return registerGetter.getRegistered()
+
+def get_checked_in(location):
+    checked_in = CheckedInTodayGetter()
+    return checked_in.get_checked_in(location)
 
 
 def sendMessage(message):
