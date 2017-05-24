@@ -63,12 +63,14 @@ def start(event, context):
 
     if params.has_key("text"):
         command_text = params['text'][0]
+
     else:
         command_text = "help"
 
     message = {
         'help': getHelp(),
-        'get_registered': getRegistered()
+        'get_registered': getRegistered(),
+        'list': get_checked_in(command_text)
     }.get(command_text, "Command not found" + command_text + "\n\n" + getHelp())
 
     return sendMessage(message)
