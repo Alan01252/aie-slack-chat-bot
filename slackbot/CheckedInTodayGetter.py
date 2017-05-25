@@ -3,7 +3,6 @@ import datetime
 import requests
 import os
 
-
 class CheckedInTodayGetter(object):
     def get_user_data(self, username):
         url = os.environ['USER_ENDPOINT'] + '{0}/details'.format(username)
@@ -41,6 +40,4 @@ class CheckedInTodayGetter(object):
         return ', '.join('%s <%s>' % (key, val) for (key, val) in checked_in.items())
 
 
-checked_in_users = CheckedInTodayGetter()
-print checked_in_users.get_checked_in('holborn')
 

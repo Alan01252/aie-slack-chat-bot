@@ -5,6 +5,7 @@ import os
 from urlparse import parse_qs
 from urllib2 import Request, urlopen, URLError, HTTPError
 
+from slackbot.CheckedInByWeekGetter import CheckedInByWeekGetter
 from slackbot.CheckedInTodayGetter import CheckedInTodayGetter
 from slackbot.HelpGetter import HelpGetter
 from slackbot.RegisterGetter import RegisterGetter
@@ -29,6 +30,11 @@ def getRegistered(command_text=None):
 def get_checked_in(command_text=None):
     checked_in = CheckedInTodayGetter()
     return checked_in.get_checked_in(command_text)
+
+
+def get_checked_in_by_week(command_text=None):
+    checked_in = CheckedInByWeekGetter()
+    return checked_in.get_checked_in()
 
 
 def register(command_text=None):
@@ -77,11 +83,15 @@ def start(event, context):
         'help': getHelp,
         'get_registered': getRegistered,
         'register': register,
-        'list': get_checked_in
+        'list': get_checked_in,
+        'people': get_checked_in_by_week
     }
 
     if command_text == "register":
         sendResponseMessage("Trying to send check in/out response for you now", params["response_url"][0])
+
+    if command_text == "people":
+        sendResponseMessage("Trying to get check ins by week now", params["response_url"][0])
 
     message = command[command_text](args)
 
