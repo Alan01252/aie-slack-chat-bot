@@ -7,7 +7,7 @@ import os
 class CheckedInTodayGetter(object):
     def get_user_data(self, username):
         url = os.environ['USER_ENDPOINT'] + '{0}/details'.format(username)
-        user_response = requests.get(url, headers={'Origin': os.environ['AUTH_HEADER']})
+        user_response = requests.get(url)
         return user_response.json()
 
     def get_email(self, username):
@@ -21,8 +21,7 @@ class CheckedInTodayGetter(object):
     def get_checked_in(self, location):
         if location is None:
             location = 'holborn'
-        response = requests.get(os.environ['ANALYTICS_ENDPOINT'],
-                                headers={'Origin': os.environ['AUTH_HEADER']})
+        response = requests.get(os.environ['ANALYTICS_ENDPOINT'])
 
         data = response.json()
 
@@ -42,6 +41,6 @@ class CheckedInTodayGetter(object):
         return ', '.join('%s <%s>' % (key, val) for (key, val) in checked_in.items())
 
 
-#checked_in_users = CheckedInTodayGetter()
-#print checked_in_users.get_checked_in('holborn')
+checked_in_users = CheckedInTodayGetter()
+print checked_in_users.get_checked_in('holborn')
 
