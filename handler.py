@@ -97,4 +97,6 @@ def start(event, context):
 
     sendResponseMessage(message, params["response_url"][0])
 
-    return True
+    return {
+        message: ""
+    }
