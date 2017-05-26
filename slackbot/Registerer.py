@@ -20,9 +20,12 @@ class Registerer(object):
 
         json = response.json()
 
-        for row in json["users"]:
-            if row["username"] == args[1]:
-                return True
+        try:
+            for row in json["users"]:
+                if row["username"] == args[1]:
+                    return True
+        except KeyError:
+            return False
 
         return False
 
