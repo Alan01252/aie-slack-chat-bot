@@ -18,5 +18,3 @@ class RegisterGetter(object):
 
         return json.dumps(data)
 
-#registerGetter = RegisterGetter()
-#registerGetter.getRegistered();

@@ -67,10 +67,13 @@ def sendResponseMessage(message, url):
 
 def start(event, context):
     assert context
-    log.debug(event)
 
     req_body = event['body']
     params = parse_qs(req_body)
+
+    sendResponseMessage("Processing..", params["response_url"][0])
+
+    log.debug(event)
     args = ""
 
     if params.has_key("text"):
