@@ -1,6 +1,5 @@
 import logging
 import json
-import os
 
 from urlparse import parse_qs
 from urllib2 import Request, urlopen, URLError, HTTPError
@@ -10,6 +9,8 @@ from slackbot.CheckedInTodayGetter import CheckedInTodayGetter
 from slackbot.HelpGetter import HelpGetter
 from slackbot.RegisterGetter import RegisterGetter
 from slackbot.Registerer import Registerer
+
+from multiprocessing import Pool
 
 print('Loading AIE slackbot')
 
@@ -59,6 +60,7 @@ def sendResponseMessage(message, url):
 
     response = {
         "statusCode": 200,
+        "headers": {'Content-Type': 'text/html'},
         "body": message
     }
 
@@ -101,5 +103,7 @@ def start(event, context):
     sendResponseMessage(message, params["response_url"][0])
 
     return {
-        message: ""
+        "statusCode": 200,
+        "body": "",
+        "headers": {'Content-Type': 'text/html'},
     }
