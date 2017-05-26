@@ -83,7 +83,7 @@ class CheckedInByWeekGetter(object):
 
         client = boto3.client('s3')
         s3 = boto3.resource('s3')
-        s3.Bucket(os.environ["BUCKET"]).put_object(Key=key, Body=csv_data.getvalue(),ACL='public-read',
+        s3.Bucket(os.environ["BUCKET"]).put_object(Key=key, Body=csv_data.getvalue(),
                                                    Expires=datetime.datetime.utcnow() + datetime.timedelta(days=7))
 
         print "Finding url for uploaded file"
