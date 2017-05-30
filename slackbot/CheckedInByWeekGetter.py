@@ -45,9 +45,11 @@ class CheckedInByWeekGetter(object):
             for day in self.days:
                 checked_in[username][day] = ""
                 for location in self.locations:
-                    if any(emotion > 0 for emotion in user[day][location]['in'].values()):
-                        checked_in[username][day] = location
-
+                    try:
+                        if any(emotion > 0 for emotion in user[day][location]['in'].values()):
+                            checked_in[username][day] = location
+                    except:
+                        print "no location found for user " + username
         return checked_in
 
     def get_csv_data(self, checked_in):
@@ -73,6 +75,7 @@ class CheckedInByWeekGetter(object):
 
     def get_checked_in(self):
         response = requests.get(os.environ['ANALYTICS_ENDPOINT'])
+
         data = response.json()
 
         csv_data = self.get_csv_data(self.populate_checked_in(data))
@@ -88,10 +91,10 @@ class CheckedInByWeekGetter(object):
 
         print "Finding url for uploaded file"
         url = client.generate_presigned_url('get_object',
-                                        Params={
-                                            'Bucket': os.environ["BUCKET"],
-                                            'Key': key
-                                        },
-                                        ExpiresIn=86400)
+                                            Params={
+                                                'Bucket': os.environ["BUCKET"],
+                                                'Key': key
+                                            },
+                                            ExpiresIn=86400)
 
         return "People file generated. Download here " + url
