@@ -35,12 +35,15 @@ The bot runs on AWS Lambda using the serverless.com framework for deployment.
    default_env: &default_env
     USER_ENDPOINT: [USERENDPOINT]
     REGISTER_ENDPOINT: [REGISTER_ENDPOINT]
-    SLACK_HOOK_URL: [SLACK_HOOK_URL] 
+    ANALYTICS_SERVICE: [ANALYTICS_SERVICE]
+    SLACK_HOOK_URL: [SLACK_HOOK_URL]
     AUTH_HEADER:  [AUTH HEADER]
-   
+    CHECK_IN_URL: [CHECKIN_URL]
+    BUCKET: { "Ref": "ServerlessDeploymentBucket" }
+
    dev:
     <<: *default_env
-  
+
 - Write code
 - ???
 - Deploy code and profit `serverless deploy -v`
