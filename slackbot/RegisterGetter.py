@@ -7,7 +7,7 @@ class RegisterGetter(object):
     def __init__(self):
         print "in register getter"
 
-    def getRegistered(self):
+    def get_registered(self):
 
         response = requests.get(os.environ['REGISTER_ENDPOINT'],
                      headers={'Origin': os.environ["AUTH_HEADER"]})

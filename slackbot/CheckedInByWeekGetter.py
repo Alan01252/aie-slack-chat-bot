@@ -24,18 +24,29 @@ class CheckedInByWeekGetter(object):
             print url
             user_response = requests.get(url)
             print user_response.status_code
-            self.cache[username] = user_response.json()
-            user_response = self.cache[username]
+
+            if user_response.status_code == 200:
+                self.cache[username] = user_response.json()
+                user_response = self.cache[username]
+            else:
+                print "Unable to find user for " + username
+                user_response = False
 
         return user_response
 
     def get_email(self, username):
         user_data = self.get_user_data(username)
-        return user_data["emailAddress"]
+        if user_data:
+            return user_data["emailAddress"]
+
+        return "NoEmail"
 
     def get_name(self, username):
         user_data = self.get_user_data(username)
-        return user_data['forename'] + ' ' + user_data['surname']  # Lazyyy
+        if user_data:
+            return user_data['forename'] + ' ' + user_data['surname']  # Lazyyy
+
+        return "NoName"
 
     def populate_checked_in(self, data):
         checked_in = {}
